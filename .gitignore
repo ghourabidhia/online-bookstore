@@ -1,0 +1,90 @@
+
+#####################################################
+# Operating System
+#####################################################
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+#####################################################
+# IDEs
+#####################################################
+
+.idea/
+.vscode/
+*.iml
+
+.project
+.classpath
+.settings/
+
+.factorypath
+
+#####################################################
+# Logs
+#####################################################
+
+*.log
+logs/
+#####################################################
+# Spring Boot Backend (Maven)
+#####################################################
+
+# Maven target
+online-bookstore/target/
+
+# Maven Wrapper logs
+online-bookstore/.mvn/wrapper/maven-wrapper.jar
+
+# Local application configuration
+online-bookstore/application-local.properties
+online-bookstore/application-local.yml
+online-bookstore/application-dev.properties
+online-bookstore/application-dev.yml
+
+# Logs
+online-bookstore/logs/
+online-bookstore/*.log
+
+#####################################################
+# Java
+#####################################################
+
+*.class
+*.jar
+*.war
+*.ear
+
+#####################################################
+# Temporary files
+#####################################################
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+#####################################################
+# Archives
+#####################################################
+
+*.zip
+*.tar
+*.tar.gz
+
+#####################################################
+# Test reports
+#####################################################
+
+surefire-reports/
+failsafe-reports/
+
+#####################################################
+# Generated files
+#####################################################
+
+dependency-reduced-pom.xml
+.mvn
+target
