@@ -4,6 +4,8 @@ package com.bnp.bookstore.controllers;
 import com.bnp.bookstore.dto.response.BookResponse;
 import com.bnp.bookstore.services.BookService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,9 @@ public class BookController {
     @Operation(
             summary = "Get all books"
     )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Page of books returned successfully")
+    })
     public ResponseEntity<Page<BookResponse>> findAll(@PageableDefault(size = 12, sort = "title") Pageable pageable) {
         return ResponseEntity.ok(bookService.findALL(pageable));
     }

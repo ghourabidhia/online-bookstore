@@ -7,6 +7,8 @@ import com.bnp.bookstore.entities.User;
 import com.bnp.bookstore.exception.UnauthorizedException;
 import com.bnp.bookstore.services.CartService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,10 @@ public class CartController {
 
     @GetMapping
     @Operation(summary = "Get current user cart")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Cart contents returned successfully"),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated")
+    })
     public ResponseEntity<CartResponse> getCart(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(
                 cartService.getCart(getAuthenticatedUserId(user))
@@ -38,6 +44,12 @@ public class CartController {
 
     @PostMapping("/items")
     @Operation(summary = "Add book to cart")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Book added to cart successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation failed or not enough stock available"),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated"),
+            @ApiResponse(responseCode = "404", description = "Book not found")
+    })
     public ResponseEntity<Void> addItem(@AuthenticationPrincipal User user, @Valid @RequestBody AddCartItemRequest request) {
 
         cartService.addItem(
@@ -51,6 +63,12 @@ public class CartController {
 
     @PutMapping("/items/{id}")
     @Operation(summary = "Update cart quantity")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Cart item quantity updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation failed or not enough stock available"),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated"),
+            @ApiResponse(responseCode = "404", description = "Cart item not found")
+    })
     public ResponseEntity<Void> update(@AuthenticationPrincipal User user, @PathVariable Long id, @Valid @RequestBody UpdateCartItemRequest request) {
 
         cartService.updateQuantity(
@@ -66,6 +84,11 @@ public class CartController {
 
     @DeleteMapping("/items/{id}")
     @Operation(summary = "Remove cart item")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Cart item removed successfully"),
+            @ApiResponse(responseCode = "401", description = "User is not authenticated"),
+            @ApiResponse(responseCode = "404", description = "Cart item not found")
+    })
     public ResponseEntity<Void> delete(@AuthenticationPrincipal User user, @PathVariable Long id) {
 
         cartService.removeItem(

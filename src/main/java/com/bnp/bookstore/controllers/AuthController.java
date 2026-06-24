@@ -6,6 +6,8 @@ import com.bnp.bookstore.dto.request.RegisterRequest;
 import com.bnp.bookstore.dto.response.AuthResponse;
 import com.bnp.bookstore.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,10 @@ public class AuthController {
     @Operation(
             summary = "Register a new customer"
     )
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Account created successfully, JWT token returned"),
+            @ApiResponse(responseCode = "400", description = "Validation failed or email is already registered")
+    })
     public ResponseEntity<AuthResponse> register(
 
 
@@ -64,6 +70,11 @@ public class AuthController {
     @Operation(
             summary = "Login and receive JWT token"
     )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Login successful, JWT token returned"),
+            @ApiResponse(responseCode = "400", description = "Validation failed — blank email or password"),
+            @ApiResponse(responseCode = "401", description = "Invalid email or password")
+    })
     public ResponseEntity<AuthResponse> login(
 
 
